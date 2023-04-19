@@ -3,10 +3,10 @@ Cypress.Commands.add('IsProfileTabVisible',()=>{
 })
 
 Cypress.Commands.add('IsToggleSidebarVisible',()=>{
-    cy.get('aside').should('not.have.class', 'toggled')
+    cy.get('aside.oxd-sidepanel').should('have.class', 'toggled')
 })
 
 Cypress.Commands.add('IsToggleSidebarNotVisible',()=>{
-    cy.get('aside').should('not.have.class', 'toggled')
+    cy.get('aside.oxd-sidepanel').should('not.have.class', 'toggled')
 })
 

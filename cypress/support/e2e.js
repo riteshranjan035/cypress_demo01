@@ -19,8 +19,10 @@ import './commands'
 import './actions/loginActions'
 //Components
 import './components/login'
+import './components/dashboard.js'
 //Queries
 import './queries/loginQueries'
+import './queries/dashboardQueries'
 
 import 'cypress-mochawesome-reporter/register';
 
