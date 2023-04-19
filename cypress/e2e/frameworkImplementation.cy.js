@@ -49,8 +49,51 @@ describe('', () => {
             cy.logout()
 
         })
+        it('Scenario 01: Validating Profile Menu List Item Click Event', () => {
+            for (let i = 0; i < 4; i++) {
+                cy.getProfileIcon().click()
+                cy.wait(200)
+                cy.geProfileMenu().find('li>a').eq(i).invoke('text').then(x => {
+                    cy.log(x)
+                    if (x === 'About') {
+                        cy.log('Text Captured ', x)
+                        cy.geProfileMenu().find('li>a').eq(i).click()
+                        cy.wait(500)
+                        cy.get('[role="document"]').find('h6').should('have.text', 'About')
+                        cy.wait(500)
+                        cy.get('[role="document"]').find('button').click({ force: true })
+                    }
+                    else if(x === 'Support' ) {
+                        cy.log('Text Captured ', x)
+                        cy.wait(2000)
+                        cy.geProfileMenu().find('li>a').eq(i).click()
+                        
+                        cy.get('.orangehrm-card-container').should('be.visible')
+                        cy.go(-1)
+                        cy.getProfileIcon().should('be.visible')
+                    }
+                    else if(x === 'Change Password') {
+                        cy.log('Text Captured ', x)
+                        cy.geProfileMenu().find('li>a').eq(i).click()
+                        cy.wait(2500)
+                        cy.get('.orangehrm-card-container').find('h6').should('have.text', 'Update Password')
+                        cy.go(-1)
+                        cy.getProfileIcon().should('be.visible')
 
-        it('Scenario01: Automating Dashboard List Items', () => {
+                    }
+                    else if(x === 'Logout') {
+                        cy.log('Validated in After Each Block')
+
+                    }
+
+
+                })
+
+
+            }
+        })
+
+        it('Scenario02: Automating Dashboard List Items', () => {
             cy.getMenuOptionsList().each(($items, index, $list) => {
                 expect($list.length).to.eq(11)
                 const expDashboardList = $items.text()
@@ -59,7 +102,7 @@ describe('', () => {
 
         })
 
-        it('Scenario02: Working On Dashboard List Icon Toggle Button', () => {
+        it('Scenario03: Working On Dashboard List Icon Toggle Button', () => {
             //close
             cy.getToggleButton().click()
             cy.IsToggleSidebarVisible()
@@ -68,12 +111,12 @@ describe('', () => {
             cy.IsToggleSidebarNotVisible()
         })
 
-        it('Scenario03: Validating Header', () => {
+        it('Scenario04: Validating Header', () => {
             cy.getHeaderDashboardText().find('h6').should('be.visible')
             cy.getHeaderDashboardText().invoke('text').should('equal', 'Dashboard')
 
         })
-        it('Scenario04: Validating Profile icon', () => {
+        it('Scenario05: Validating Profile icon', () => {
             //click Profile Icon & Validate Menu
             cy.getProfileIcon().click()
             cy.wait(200)
@@ -85,43 +128,16 @@ describe('', () => {
 
             })
         })
-        it.only('Scenario 05: Validating Profile Menu List Item Click Event', () => {
-            for (let i = 0; i < 4; i++) {
-                cy.getProfileIcon().click()
-                cy.wait(200)
-                cy.geProfileMenu().find('li>a').eq(i).invoke('text').then(x => {
-                    //cy.log(x)
-                    if (expect(x).to.eql(profileMenuItemList[i])) {
-                        cy.geProfileMenu().find('li>a').eq(i).click()
-                        cy.wait(500)
-                        cy.get('[role="document"]').find('h6').should('have.text', 'About')
-                        cy.wait(500)
-                        cy.get('[role="document"]').find('button').click({ force: true })
-                    }
-                    else if (expect(x).to.eql(profileMenuItemList[i])) {
-                        cy.geProfileMenu().find('li>a').eq(i).click()
-                        cy.get('.orangehrm-card-container').should('be.visible')
-                        cy.go(-1)
-                        cy.getProfileIcon().should('be.visible')
-                    }
-                    else if (expect(x).to.eql(profileMenuItemList[i])) {
-                        cy.geProfileMenu().find('li>a').eq(i).click()
-                        cy.get('.orangehrm-card-container').find('h6').should('have.text', 'Update Password')
-                        cy.go(-1)
-                        cy.getProfileIcon().should('be.visible')
+ 
 
-                    }
-                    else if (expect(x).to.eql(profileMenuItemList[i])) {
-                        cy.geProfileMenu().find('li>a').eq(i).click()
-                        cy.get('.orangehrm-login-slot').should('be.visible')
-
-                    }
-                })
-
-
-
-
-            }
+        it('Scenario 06: Validating Search functionality on dashboard ',()=>{
+                 cy.get('[placeholder="Search"]').should('have.value','')
+                 cy.get('ul.oxd-main-menu').find('li').should('have.length','11')
+                 //Validate using Boundary Value Analysis 
+                 cy.get('[placeholder="Search"]').type('Leave').should('have.value','Leave')
+                 cy.get('ul.oxd-main-menu').find('li').should('have.length','1')
+                 cy.get('[placeholder="Search"]').clear().should('have.value','')
+                 cy.get('ul.oxd-main-menu').find('li').should('have.length','11')
         })
 
     })
