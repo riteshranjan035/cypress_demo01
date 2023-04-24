@@ -32,7 +32,7 @@ describe('', () => {
         ]
 
         before('Loading Fixture', function () {
-            cy.fixture('example').then(data => {
+            cy.fixture('orangehrmLogin').then(data => {
                 user = data
             })
             cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
@@ -131,13 +131,13 @@ describe('', () => {
  
 
         it('Scenario 06: Validating Search functionality on dashboard ',()=>{
-                 cy.get('[placeholder="Search"]').should('have.value','')
-                 cy.get('ul.oxd-main-menu').find('li').should('have.length','11')
+                 cy.getDashboardSearch().should('have.value','')
+                 cy.isDashboardListLength(11)
                  //Validate using Boundary Value Analysis 
-                 cy.get('[placeholder="Search"]').type('Leave').should('have.value','Leave')
-                 cy.get('ul.oxd-main-menu').find('li').should('have.length','1')
-                 cy.get('[placeholder="Search"]').clear().should('have.value','')
-                 cy.get('ul.oxd-main-menu').find('li').should('have.length','11')
+                 cy.getDashboardSearch().type('Leave').should('have.value','Leave')
+                 cy.isDashboardListLength(1)
+                 cy.getDashboardSearch().clear().should('have.value','')
+                 cy.isDashboardListLength(11)
         })
 
     })

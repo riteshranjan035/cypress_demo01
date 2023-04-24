@@ -11,3 +11,8 @@ Cypress.Commands.add('geProfileMenu', () => {
     return cy.get('.oxd-dropdown-menu')
 })
 
+
+Cypress.Commands.add('getDashboardSearch', () => {
+    return  cy.get('[placeholder="Search"]')
+})
+
