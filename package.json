@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx cypress run",
     "chromeTest": "npx cypress run --browser chrome --headed",
-    "specfile": "npx cypress run --spec './cypress/e2e/frameworkImplementation.cy.js' --headed --browser chrome"
+    "specfile": "npx cypress run --spec './cypress/e2e/frameworkImplementation.cy.js'"
     
   },
   "author": "Ritesh Ranjan",
