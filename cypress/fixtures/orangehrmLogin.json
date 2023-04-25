@@ -1,4 +1,23 @@
 {
-  "username" : "Admin",
-  "password" : "admin123"
+  "username": "Admin",
+  "password": "admin123",
+  "actualDashboardList": [
+    "Admin",
+    "PIM",
+    "Leave",
+    "Time",
+    "Recruitment",
+    "My Info",
+    "Performance",
+    "Dashboard",
+    "Directory",
+    "Maintenance",
+    "Buzz"
+  ],
+  "profileMenuItemList": [
+    "About",
+    "Support",
+    "Change Password",
+    "Logout"
+  ]
 }

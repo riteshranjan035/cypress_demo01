@@ -1,36 +1,9 @@
 /// <reference types='cypress' />
 
 describe('', () => {
-
-
     let user;
 
     context('', () => {
-
-
-        let actualDashboardList =
-            [
-
-                "Admin",
-                "PIM",
-                "Leave",
-                "Time",
-                "Recruitment",
-                "My Info",
-                "Performance",
-                "Dashboard",
-                "Directory",
-                "Maintenance",
-                "Buzz"
-            ]
-
-        const profileMenuItemList = [
-            "About",
-            "Support",
-            "Change Password",
-            "Logout"
-        ]
-
         before('Loading Fixture', function () {
             cy.fixture('orangehrmLogin').then(data => {
                 user = data
@@ -63,16 +36,16 @@ describe('', () => {
                         cy.wait(500)
                         cy.get('[role="document"]').find('button').click({ force: true })
                     }
-                    else if(x === 'Support' ) {
+                    else if (x === 'Support') {
                         cy.log('Text Captured ', x)
                         cy.wait(2000)
                         cy.geProfileMenu().find('li>a').eq(i).click()
-                        
+
                         cy.get('.orangehrm-card-container').should('be.visible')
                         cy.go(-1)
                         cy.getProfileIcon().should('be.visible')
                     }
-                    else if(x === 'Change Password') {
+                    else if (x === 'Change Password') {
                         cy.log('Text Captured ', x)
                         cy.geProfileMenu().find('li>a').eq(i).click()
                         cy.wait(2500)
@@ -81,7 +54,7 @@ describe('', () => {
                         cy.getProfileIcon().should('be.visible')
 
                     }
-                    else if(x === 'Logout') {
+                    else if (x === 'Logout') {
                         cy.log('Validated in After Each Block')
 
                     }
@@ -97,7 +70,8 @@ describe('', () => {
             cy.getMenuOptionsList().each(($items, index, $list) => {
                 expect($list.length).to.eq(11)
                 const expDashboardList = $items.text()
-                expect(expDashboardList).to.eq(actualDashboardList[index])
+                //expect(expDashboardList).to.eq(actualDashboardList[index])
+                expect(expDashboardList).to.eq(user['actualDashboardList'][index])
             })
 
         })
@@ -122,22 +96,22 @@ describe('', () => {
             cy.wait(200)
             cy.isProfileMenuVisible()
             //Validating Profile Menu List Text
-            cy.geProfileMenu().find('li>a').each(($items, $index, $list) => {
+            cy.geProfileMenu().find('li>a').each(($items, index, $list) => {
                 expect($list).to.have.length('4')
-                cy.wrap($items).invoke('text').should('eq', profileMenuItemList[$index])
+                cy.wrap($items).invoke('text').should('eq', user['profileMenuItemList'][index])
 
             })
         })
- 
 
-        it('Scenario 06: Validating Search functionality on dashboard ',()=>{
-                 cy.getDashboardSearch().should('have.value','')
-                 cy.isDashboardListLength(11)
-                 //Validate using Boundary Value Analysis 
-                 cy.getDashboardSearch().type('Leave').should('have.value','Leave')
-                 cy.isDashboardListLength(1)
-                 cy.getDashboardSearch().clear().should('have.value','')
-                 cy.isDashboardListLength(11)
+
+        it('Scenario 06: Validating Search functionality on dashboard ', () => {
+            cy.getDashboardSearch().should('have.value', '')
+            cy.isDashboardListLength(11)
+            //Validate using Boundary Value Analysis 
+            cy.getDashboardSearch().type('Leave').should('have.value', 'Leave')
+            cy.isDashboardListLength(1)
+            cy.getDashboardSearch().clear().should('have.value', '')
+            cy.isDashboardListLength(11)
         })
 
     })
