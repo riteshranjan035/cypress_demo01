@@ -1,6 +1,6 @@
 /// <reference types='cypress' />
 require('@cypress/xpath');
-require('@4tw/cypress-drag-drop')
+//require('@4tw/cypress-drag-drop')
 require('cypress-iframe')
 
 Cypress.on('uncaught:exception', (err, runnable) => {
