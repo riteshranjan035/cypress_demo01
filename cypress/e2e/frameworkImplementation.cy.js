@@ -111,7 +111,7 @@ describe('', () => {
             cy.getDashboardSearch().type('Leave').should('have.value', 'Leave')
             cy.isDashboardListLength(1)
             cy.getDashboardSearch().clear().should('have.value', '')
-            cy.isDashboardListLength(11)
+            cy.isDashboardListLength(10) //On purpose failing
         })
 
     })
