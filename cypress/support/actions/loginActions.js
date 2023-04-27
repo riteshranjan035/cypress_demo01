@@ -1,10 +1,10 @@
 
 Cypress.Commands.add('typeOnUsername',(userName)=>{
-    cy.getUsername().type(userName)
+    cy.getUsername().clear().type(userName)
 })
 
 Cypress.Commands.add('typeOnPassword',(password)=>{
-    cy.getPassword().type(password)
+    cy.getPassword().clear().type(password) //get pw
 })
 
 Cypress.Commands.add('clickOnLoginButton',()=>{
