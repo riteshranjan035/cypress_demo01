@@ -4,7 +4,7 @@ Cypress.Commands.add('typeOnUsername',(userName)=>{
 })
 
 Cypress.Commands.add('typeOnPassword',(password)=>{
-    cy.getPassword().clear().type(password) //get pw
+    cy.getPassword().clear().type(password) 
 })
 
 Cypress.Commands.add('clickOnLoginButton',()=>{
