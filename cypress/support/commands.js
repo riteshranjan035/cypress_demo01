@@ -20,3 +20,11 @@ Cypress.Commands.add('logout', () => {
   cy.get('ul[role="menu"] li').eq(3).click()
   cy.wait(2000)
 })
+
+Cypress.Commands.add('forgetPwValidationsVisible', () => {
+  cy.get('.orangehrm-forgot-password-wrapper').should('be.visible').and('have.length','1')
+  cy.get('.orangehrm-forgot-password-wrapper').find('form').contains('Username')
+  cy.get('input[name="username"]').should('be.enabled').and('have.attr','placeholder','Username')
+  cy.get('.orangehrm-forgot-password-button-container').find('button').should('have.length','2')
+})
+

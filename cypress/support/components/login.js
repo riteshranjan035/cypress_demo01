@@ -11,22 +11,22 @@ Cypress.Commands.add('getLoginButton', () => {
     return cy.get(`[type="submit"]`)
 })
 
-Cypress.Commands.add('getProfileImage', () => {
-    return cy.get(`.oxd-userdropdown-tab`)
+Cypress.Commands.add('getCompanyBranding', () => {
+    return cy.get('[alt="company-branding"]')
 })
 
-Cypress.Commands.add('getLogout', (index) => {
-    return cy.get('[role="menu"]').find('li').eq(index)
+Cypress.Commands.add('getCompanyLogo', () => {
+    return cy.get('.orangehrm-login-logo img')
 })
 
-Cypress.Commands.add('getApplicationBranding', () => {
-    return cy.get(`.orangehrm-login-branding`)
+Cypress.Commands.add('getNoPwInputText', () => {
+    return cy.get('.oxd-form-row span')
 })
 
-Cypress.Commands.add('getMenuOptionsList', () => {
-    return cy.get('ul.oxd-main-menu>li span')
+Cypress.Commands.add('getInvalidInputText', () => {
+    return cy.get('.oxd-alert-content-text')
 })
 
-Cypress.Commands.add('getToggleButton', () => {
-    return cy.get('.oxd-main-menu-search').find('button')
+Cypress.Commands.add('getLoginCredentialsInfo', () => {
+    return cy.get('.orangehrm-demo-credentials').find('p')
 })

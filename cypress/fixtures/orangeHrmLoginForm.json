@@ -1,0 +1,25 @@
+[
+    {
+        "InvalidUsername": "Admin123",
+        "ValidPassword": "admin123"
+    },
+    {
+        "ValidUsername": "Admin",
+        "InvalidPassword": "admin"
+    },
+    {
+        "InvalidUsername": "Admin123",
+        "InvalidPassword": "admin"
+    },
+    {
+
+    "socialIcons": [
+       
+            "https://www.linkedin.com/company/orangehrm",
+            "https://www.facebook.com/OrangeHRM/",
+            "https://twitter.com/orangehrm",
+            "https://www.youtube.com/c/OrangeHRMInc"
+      
+    ]
+}
+]

@@ -1,61 +1,79 @@
 /// <reference types='Cypress' />
 
 describe('Automating Login Functionality', () => {
+    let user;
 
-    // before('Loading Fixture', () => {
-    //     cy.fixture('').then(data => {
-    //         this.data = data
-    //     })
+    before('Loading Fixture', function () {
+        cy.fixture('orangeHrmLoginForm').then(function (data) {
+            user = data
+        })
 
-    // })
+    })
 
-    beforeEach('', () => {
-        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+    beforeEach('Loading Base URL', () => {
+        cy.visit(Cypress.env('url'))
     })
 
     it('Scenario01: Validating Enablity and Visibility of all Login Elements', () => {
-        cy.get('[alt="company-branding"]').should('be.visible').and('have.length', '1')
-        cy.get('.orangehrm-login-logo img').should('be.visible').and('have.length', '1')
+        cy.IsCompanyBrandingImgVisible()
+        cy.IsCompanyLogoImgVisible()
+        cy.IsLoginCedentialsVisible()
     })
 
-    it('Scenario02: InValid Username Valid Password', () => {
-        cy.typeOnUsername('Admin123')
-        cy.typeOnPassword('admin123')
-        cy.get('.oxd-alert-content-text').should('be.visible').and('have.text', '')
+    it('Scenario02: InValid Username Valid Password', function () {
+        cy.typeOnUsername(user[0]['InvalidUsername'])
+        cy.typeOnPassword(user[0]['ValidPassword'])
         cy.clickOnLoginButton()
+        cy.IsInvalidInputTextDisplayed()
     })
-    it('Scenario03: Valid Username Invalid Password', () => {
-        cy.typeOnUsername('Admin')
-        cy.typeOnPassword('admin')
-        cy.get('.oxd-alert-content-text').should('be.visible').and('have.text', '')
+    it('Scenario03: Valid Username Invalid Password', function () {
+        cy.typeOnUsername(user[1]['ValidUsername'])
+        cy.typeOnPassword(user[1]['InvalidPassword'])
         cy.clickOnLoginButton()
+        cy.IsInvalidInputTextDisplayed()
     })
-    it('Scenario04: InValid Username Invalid Password', () => {
-        cy.typeOnUsername('Admin123')
-        cy.typeOnPassword('admin123')
-        cy.get('.oxd-alert-content-text').should('be.visible').and('have.text', '')
+    it('Scenario04: InValid Username Invalid Password', function () {
+        cy.typeOnUsername(user[2]['InvalidUsername'])
+        cy.typeOnPassword(user[2]['InvalidPassword'])
         cy.clickOnLoginButton()
+        cy.IsInvalidInputTextDisplayed()
     })
-    it('Scenario05: No Username No Password', () => {
+    it('Scenario05: No Username No Password', function () {
         cy.clickOnLoginButton()
-        cy.get('.oxd-form-row span').should('have.length', '2').and('have.text', 'Required')
+        cy.IsNoUserPwValidation()
 
     })
-    it('Scenario06: Validating PlaceHolder Balue for username & Password', () => {
-        cy.getUsername().should('have.attr', 'placeholder', 'Username')
-        cy.getPassword().should('have.attr', 'placeholder', 'Password')
+    it('Scenario06: Validating PlaceHolder Value for username & Password', () => {
+        cy.IsPlaceholderValueDisplayed()
     })
 
-    it.only('Scenario07: Validating Social Icons', () => {
+    it('Scenario07: Validating Forget Password', () => {
+        cy.contains('Forgot your password? ').click()
+        cy.forgetPwValidationsVisible()
+    })
+
+    it.skip('Scenario08: Validate Footer Orange Hrm Link', () => {
+        //Not Loading After Click
+        cy.get('.orangehrm-copyright-wrapper').find('a').invoke('removeAttr', 'target').click({ force: true }).click({ force: true })
+        cy.origin('https://www.orangehrm.com/', () => {
+
+            cy.get('.web-menu-btn').should('have.length', '2')
+        })
+
+
+    })
+    it.only('Scenario09: Validating Social Icons', function() {
         const expUrl = [
             "https://www.linkedin.com/company/orangehrm",
             "https://www.facebook.com/OrangeHRM/",
             "https://twitter.com/orangehrm",
             "https://www.youtube.com/c/OrangeHRMInc"
         ]
+
+        
         for (let i = 0; i < expUrl.length; i++) {
 
-            if (expUrl != 'https://twitter.com/orangehrm"') {
+            if (expUrl[i] != 'https://twitter.com/orangehrm"') {
 
                 cy.get('.orangehrm-login-footer-sm').find('a')
                     .eq(i).invoke('removeAttr', 'target')
@@ -67,7 +85,7 @@ describe('Automating Login Functionality', () => {
                     cy.go(-1)
                 })
             }
-            else{
+            else {
                 cy.get('.orangehrm-login-footer-sm').find('a')
                     .eq(i).invoke('attr', 'href', expUrl[i])
                     .wait(500)

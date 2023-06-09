@@ -8,7 +8,7 @@ describe('', () => {
             cy.fixture('orangehrmLogin').then(data => {
                 user = data
             })
-            cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+            cy.visit(Cypress.env('url'))
         })
 
         beforeEach('Login Hook', function () {
@@ -42,8 +42,9 @@ describe('', () => {
                         cy.geProfileMenu().find('li>a').eq(i).click()
 
                         cy.get('.orangehrm-card-container').should('be.visible')
-                        cy.go(-1)
+                        cy.go(-1) //cy.go('back')
                         cy.getProfileIcon().should('be.visible')
+                        //cy.get().should('exist')
                     }
                     else if (x === 'Change Password') {
                         cy.log('Text Captured ', x)
@@ -111,7 +112,7 @@ describe('', () => {
             cy.getDashboardSearch().type('Leave').should('have.value', 'Leave')
             cy.isDashboardListLength(1)
             cy.getDashboardSearch().clear().should('have.value', '')
-            cy.isDashboardListLength(11) 
+            cy.isDashboardListLength(11)
         })
 
     })
